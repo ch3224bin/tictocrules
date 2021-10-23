@@ -2,6 +2,7 @@ package coupon;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import payment.Payment;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +21,7 @@ public class CouponTest {
     @DisplayName("쿠폰에 적용된 조건이 있으면 true를 반환한다")
     @Test
     public void testHasConditions() {
-        Coupon coupon = new Coupon(new Conditions(List.of(new Condition())));
+        Coupon coupon = new Coupon(new Conditions(List.of(payment -> false)));
         assertThat(coupon.hasConditions()).isTrue();
     }
 

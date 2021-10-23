@@ -1,4 +1,7 @@
 package coupon;
 
-public class Condition {
+import payment.Payment;
+
+public interface Condition {
+    boolean isAvailable(Payment payment);
 }

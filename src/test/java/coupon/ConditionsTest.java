@@ -1,6 +1,8 @@
 package coupon;
 
+import money.Money;
 import org.junit.jupiter.api.Test;
+import payment.Payment;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +19,16 @@ public class ConditionsTest {
 
     @Test
     void testIsNotEmpty() {
-        Conditions conditions = new Conditions(List.of(new Condition()));
+        Conditions conditions = new Conditions(List.of(payment -> false));
         assertThat(conditions.isEmpty()).isFalse();
+    }
+
+    @Test
+    void testMinPaymentCondition() {
+        Conditions conditions = new Conditions(List.of(new MinPaymentCondition(Money.of(1000))));
+        Payment payment = Payment.builder().amount(Money.of(1000)).build();
+        assertThat(conditions.isAvailable(payment)).isTrue();
+        payment = Payment.builder().amount(Money.of(999)).build();
+        assertThat(conditions.isAvailable(payment)).isFalse();
     }
 }
