@@ -1,5 +1,7 @@
 package coupon;
 
+import caretype.CareType;
+import caretype.CareTypes;
 import money.Money;
 import org.junit.jupiter.api.Test;
 import payment.Payment;
@@ -26,9 +28,24 @@ public class ConditionsTest {
     @Test
     void testMinPaymentCondition() {
         Conditions conditions = new Conditions(List.of(new MinPaymentCondition(Money.of(1000))));
-        Payment payment = Payment.builder().amount(Money.of(1000)).build();
-        assertThat(conditions.isAvailable(payment)).isTrue();
-        payment = Payment.builder().amount(Money.of(999)).build();
-        assertThat(conditions.isAvailable(payment)).isFalse();
+        testMinPaymentCondition(conditions, Money.of(1000), true);
+        testMinPaymentCondition(conditions, Money.of(999), false);
+    }
+
+    private void testMinPaymentCondition(Conditions conditions, Money amount, boolean result) {
+        Payment payment = Payment.builder().amount(amount).build();
+        assertThat(conditions.isAvailable(payment)).isEqualTo(result);
+    }
+
+    @Test
+    void testCareTypeCondition() {
+        Conditions conditions = new Conditions(List.of(new CareTypeCondition(new CareTypes(CareType.A, CareType.B))));
+        testCareTypeCondition(conditions, new CareTypes(CareType.A, CareType.C), true);
+        testCareTypeCondition(conditions, new CareTypes(CareType.C), false);
+    }
+
+    private void testCareTypeCondition(Conditions conditions, CareTypes careTypes, boolean result) {
+        Payment payment = Payment.builder().careTypes(careTypes).build();
+        assertThat(conditions.isAvailable(payment)).isEqualTo(result);
     }
 }
