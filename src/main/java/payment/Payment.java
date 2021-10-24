@@ -1,22 +1,18 @@
 package payment;
 
-import caretype.CareTypes;
 import lombok.Builder;
 import lombok.Getter;
 import money.Money;
-
-import java.time.DayOfWeek;
+import product.Product;
 
 @Getter
 public class Payment {
     private final Money amount;
-    private final CareTypes careTypes;
-    private final DayOfWeek dayOfWeek;
+    private final Product product;
 
     @Builder
-    private Payment(Money amount, CareTypes careTypes, DayOfWeek dayOfWeek) {
+    private Payment(Money amount, Product product) {
         this.amount = amount;
-        this.careTypes = careTypes;
-        this.dayOfWeek = dayOfWeek;
+        this.product = product;
     }
 }

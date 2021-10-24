@@ -14,6 +14,6 @@ public class DayOfWeekCondition implements Condition {
 
     @Override
     public boolean isAvailable(Payment payment) {
-        return this.dayOfWeeks.contains(payment.getDayOfWeek());
+        return this.dayOfWeeks.contains(payment.getProduct().getDayOfWeek());
     }
 }

@@ -12,6 +12,6 @@ public class CareTypeCondition implements Condition {
 
     @Override
     public boolean isAvailable(Payment payment) {
-        return this.careTypes.containsAnyOf(payment.getCareTypes());
+        return this.careTypes.containsAnyOf(payment.getProduct().getCareTypes());
     }
 }

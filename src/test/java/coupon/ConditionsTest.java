@@ -5,6 +5,7 @@ import caretype.CareTypes;
 import money.Money;
 import org.junit.jupiter.api.Test;
 import payment.Payment;
+import product.Product;
 
 import java.time.DayOfWeek;
 import java.util.Collections;
@@ -46,7 +47,8 @@ public class ConditionsTest {
     }
 
     private void testCareTypeCondition(Conditions conditions, CareTypes careTypes, boolean result) {
-        Payment payment = Payment.builder().careTypes(careTypes).build();
+        Product product = new Product(careTypes, DayOfWeek.MONDAY);
+        Payment payment = Payment.builder().product(product).build();
         assertThat(conditions.isAvailable(payment)).isEqualTo(result);
     }
 
@@ -58,7 +60,8 @@ public class ConditionsTest {
     }
 
     private void testDayOfWeekCondition(Conditions conditions, DayOfWeek dayOfWeek, boolean result) {
-        Payment payment = Payment.builder().dayOfWeek(dayOfWeek).build();
+        Product product = new Product(new CareTypes(CareType.A), dayOfWeek);
+        Payment payment = Payment.builder().product(product).build();
         assertThat(conditions.isAvailable(payment)).isEqualTo(result);
     }
 }

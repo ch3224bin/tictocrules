@@ -5,6 +5,9 @@ import caretype.CareTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import payment.Payment;
+import product.Product;
+
+import java.time.DayOfWeek;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +21,8 @@ public class CareTypeConditionTest {
     }
 
     private void testIsAvailable(Condition condition, CareTypes careTypes, boolean result) {
-        Payment payment = Payment.builder().careTypes(careTypes).build();
+        Product product = new Product(careTypes, DayOfWeek.MONDAY);
+        Payment payment = Payment.builder().product(product).build();
         assertThat(condition.isAvailable(payment)).isEqualTo(result);
     }
 }
