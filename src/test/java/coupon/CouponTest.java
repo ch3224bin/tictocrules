@@ -2,6 +2,7 @@ package coupon;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import payment.Payment;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,7 @@ public class CouponTest {
     @Test
     void testGivenNoConditionWhenCheckAvailableThenReturnTrue() {
         Coupon coupon = new Coupon(new Conditions(Collections.emptyList()));
-        assertThat(coupon.isAvailable()).isTrue();
+        Payment payment = Payment.builder().build();
+        assertThat(coupon.isAvailable(payment)).isTrue();
     }
 }

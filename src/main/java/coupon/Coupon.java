@@ -1,5 +1,7 @@
 package coupon;
 
+import payment.Payment;
+
 public class Coupon {
     private final Conditions conditions;
 
@@ -11,7 +13,7 @@ public class Coupon {
         return !this.conditions.isEmpty();
     }
 
-    public boolean isAvailable() {
-        return !this.hasConditions();
+    public boolean isAvailable(Payment payment) {
+        return !this.hasConditions() || this.conditions.isAvailable(payment);
     }
 }
