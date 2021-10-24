@@ -2,7 +2,6 @@ package coupon;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import payment.Payment;
 
 import java.util.Collections;
 import java.util.List;

@@ -6,6 +6,7 @@ import money.Money;
 import org.junit.jupiter.api.Test;
 import payment.Payment;
 
+import java.time.DayOfWeek;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,6 +47,18 @@ public class ConditionsTest {
 
     private void testCareTypeCondition(Conditions conditions, CareTypes careTypes, boolean result) {
         Payment payment = Payment.builder().careTypes(careTypes).build();
+        assertThat(conditions.isAvailable(payment)).isEqualTo(result);
+    }
+
+    @Test
+    void testDayOfWeekCondition() {
+        Conditions conditions = new Conditions(List.of(new DayOfWeekCondition(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)));
+        testDayOfWeekCondition(conditions, DayOfWeek.FRIDAY, true);
+        testDayOfWeekCondition(conditions, DayOfWeek.THURSDAY, false);
+    }
+
+    private void testDayOfWeekCondition(Conditions conditions, DayOfWeek dayOfWeek, boolean result) {
+        Payment payment = Payment.builder().dayOfWeek(dayOfWeek).build();
         assertThat(conditions.isAvailable(payment)).isEqualTo(result);
     }
 }
